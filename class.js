@@ -29,7 +29,7 @@ var slice = Array.prototype.slice;
  */
 function Class() {}
 Class.extend = extend;
-Class.makeInstanceWith = makeInstanceWith;
+Class.makeInstanceOf = makeInstanceOf;
 module.exports = Class;
 
 function extend(Subclass /* [, prototype [,prototype]] */) {
@@ -101,7 +101,7 @@ function extendStatics(Class, Subclass) {
  * Makes a native object pretend to be an instance of class (e.g. adds methods to a DocumentFragment then calls the
  * constructor).
  */
-function makeInstanceWith(object) {
+function makeInstanceOf(object) {
   var constructor = this;
   var args = slice.call(arguments, 2);
   var proto = constructor.prototype;
