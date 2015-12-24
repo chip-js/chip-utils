@@ -102,12 +102,8 @@ function extendStatics(Class, Subclass) {
  * constructor).
  */
 function makeInstanceOf(object) {
-  var constructor = this;
-  var args = slice.call(arguments, 2);
-  var proto = constructor.prototype;
-  for (var key in proto) {
-    object[key] = proto[key];
-  }
-  constructor.apply(object, args);
+  var args = slice.call(arguments, 1);
+  Object.defineProperties(object, getDescriptors([this.prototype]));
+  this.apply(object, args);
   return object;
 }

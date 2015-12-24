@@ -89,4 +89,25 @@ describe('extend', function() {
 
     expect(Subclass.sayHi()).to.equal('Hello you');
   });
+
+
+  it('should fake make an instace of a class', function() {
+    var called = 0;
+    var MyClass = function() {
+      called++;
+    };
+
+    Class.extend(MyClass, {
+      foo: function() {
+        return 'bar';
+      }
+    });
+
+    var fragment = document.createDocumentFragment();
+    MyClass.makeInstanceOf(fragment);
+
+    expect(called).to.equal(1);
+    expect(fragment).to.have.property('foo');
+    expect(fragment.foo()).to.equal('bar');
+  });
 });
