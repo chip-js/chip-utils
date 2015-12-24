@@ -1,11 +1,10 @@
-var EventEmitter = require('../events');
+var EventEmitter = require('../event-target');
 
 describe('EventEmitter', function() {
   var obj
 
   beforeEach(function() {
-    obj = {};
-    EventEmitter(obj);
+    obj = new EventEmitter();
   });
 
 
