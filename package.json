@@ -1,0 +1,34 @@
+{
+  "name": "chip-utils",
+  "version": "0.1.0",
+  "description": "A few basic utilities for use within chip-supported libraries",
+  "homepage": "http://github.com/chip-js/chip-utils",
+  "author": {
+    "name": "Jacob Wright",
+    "email": "jacwright@gmail.com",
+    "url": "http://github.com/jacwright"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chip-js/chip-utils.git"
+  },
+  "bugs": {
+    "url": "https://github.com/chip-js/chip-utils/issues"
+  },
+  "scripts": {
+    "test": "karma start --singleRun=true",
+    "lint": "eslint src"
+  },
+  "devDependencies": {
+    "chai": "^2.3.0",
+    "eslint": "^1.10.1",
+    "karma": "^0.13.15",
+    "karma-browserify": "^4.4.2",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-mocha": "^0.2.1",
+    "karma-source-map-support": "^1.1.0",
+    "mocha": "^2.2.5"
+  }
+}
