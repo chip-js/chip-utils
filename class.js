@@ -33,12 +33,11 @@ Class.makeInstanceOf = makeInstanceOf;
 module.exports = Class;
 
 function extend(Subclass /* [, prototype [,prototype]] */) {
-  var prototypes;
+  var prototypes, SuperClass = this;
 
   // Support no constructor
   if (typeof Subclass !== 'function') {
     prototypes = slice.call(arguments);
-    var SuperClass = this;
     Subclass = function() {
       SuperClass.apply(this, arguments);
     };
@@ -59,6 +58,10 @@ function extend(Subclass /* [, prototype [,prototype]] */) {
   var descriptors = getDescriptors(prototypes);
   descriptors.constructor = { writable: true, configurable: true, value: Subclass };
   Subclass.prototype = Object.create(this.prototype, descriptors);
+  if (typeof SuperClass.onExtension === 'function') {
+    // Allow for customizing the definitions of your child classes
+    SuperClass.onExtend(Subclass, prototypes);
+  }
   return Subclass;
 }
 
