@@ -57,6 +57,7 @@ function extend(Subclass /* [, prototype [,prototype]] */) {
 
   var descriptors = getDescriptors(prototypes);
   descriptors.constructor = { writable: true, configurable: true, value: Subclass };
+  descriptors.super = { configurable: true, value: SuperClass.prototype };
   Subclass.prototype = Object.create(this.prototype, descriptors);
   if (typeof SuperClass.onExtend === 'function') {
     // Allow for customizing the definitions of your child classes
