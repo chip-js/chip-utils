@@ -45,13 +45,17 @@ function extend(Subclass /* [, prototype [,prototype]] */) {
     prototypes = slice.call(arguments, 1);
   }
 
-  extendStatics(this, Subclass);
+  if (Object.setPrototypeOf) {
+    Object.setPrototypeOf(Subclass, this);
+  } else {
+    Subclass.__proto__ = this;
+  }
 
   prototypes.forEach(function(proto) {
     if (typeof proto === 'function') {
-      extendStatics(proto, Subclass);
+      addStatics(proto, Subclass);
     } else if (proto.hasOwnProperty('static')) {
-      extendStatics(proto.static, Subclass);
+      addStatics(proto.static, Subclass);
     }
   });
 
@@ -89,11 +93,11 @@ function getDescriptors(objects) {
 }
 
 // Copies static methods over for static inheritance
-function extendStatics(Class, Subclass) {
+function addStatics(statics, Subclass) {
 
   // static method inheritance (including `extend`)
-  Object.keys(Class).forEach(function(key) {
-    var descriptor = Object.getOwnPropertyDescriptor(Class, key);
+  Object.keys(statics).forEach(function(key) {
+    var descriptor = Object.getOwnPropertyDescriptor(statics, key);
     if (!descriptor.configurable) return;
 
     Object.defineProperty(Subclass, key, descriptor);
