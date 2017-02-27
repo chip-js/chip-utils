@@ -1,6 +1,6 @@
 {
   "name": "chip-utils",
-  "version": "0.2.8",
+  "version": "0.3.0",
   "description": "A few basic utilities for use within chip-supported libraries",
   "homepage": "http://github.com/chip-js/chip-utils",
   "author": {
