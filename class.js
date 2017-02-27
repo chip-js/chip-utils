@@ -74,22 +74,27 @@ function extend(Subclass /* [, prototype [,prototype]] */) {
 function getDescriptors(objects) {
   var descriptors = {};
 
-  objects.forEach(function(object) {
-    if (typeof object === 'function') object = object.prototype;
+  objects.forEach(getDescriptorsHelper.bind(this, descriptors));
 
-    Object.getOwnPropertyNames(object).forEach(function(name) {
-      if (name === 'static') return;
-
-      var descriptor = Object.getOwnPropertyDescriptor(object, name);
-
-      if (typeof descriptor.value === 'function') {
-        descriptor.enumerable = false;
-      }
-
-      descriptors[name] = descriptor;
-    });
-  });
   return descriptors;
+}
+
+function getDescriptorsHelper(descriptors, object) {
+  if (typeof object === 'function') object = object.prototype;
+
+  Object.getOwnPropertyNames(object).forEach(getDescriptorsNameHelper.bind(this, descriptors, object));
+}
+
+function getDescriptorsNameHelper(descriptors, object, name) {
+  if (name === 'static') return;
+
+  var descriptor = Object.getOwnPropertyDescriptor(object, name);
+
+  if (typeof descriptor.value === 'function') {
+    descriptor.enumerable = false;
+  }
+
+  descriptors[name] = descriptor;
 }
 
 // Copies static methods over for static inheritance
